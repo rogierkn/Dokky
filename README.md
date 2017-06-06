@@ -1,0 +1,1 @@
+Dokky is an OSX menu bar app used to manage your docker containers
