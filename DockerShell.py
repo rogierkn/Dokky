@@ -14,7 +14,7 @@ class DockerShell:
         return Shell.run("docker inspect " + id)
 
     def startContainer(self, id):
-        return Shell.run("docker start " + id)
+        return Shell.run("docker start " + id, True)
 
     def stopContainer(self, id):
-        return Shell.run("docker stop " + id)
+        return Shell.run("docker stop " + id, True)

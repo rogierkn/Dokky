@@ -5,7 +5,7 @@ from Container import Container
 
 class App(rumps.App):
     def __init__(self, dockerShell):
-        rumps.debug_mode(True)
+        # rumps.debug_mode(True)
         super().__init__("DockerMenu", icon="./assets/icon.png")
 
         self.__dockerShell = dockerShell
@@ -13,7 +13,7 @@ class App(rumps.App):
         self.__containers = dict()
 
         self.__menuUpdater = rumps.Timer(self.refresh, 10).start()
-        self.__containerUpdate = rumps.Timer(self.updateContainers, 5).start()
+        self.__containerUpdater = rumps.Timer(self.updateContainers, 5).start()
 
     # Update the containers
     # Add newly created, remove the removed containers
@@ -47,12 +47,11 @@ class App(rumps.App):
 
     def __updateMenu(self):
         menuItems = list(map(lambda container: container.getMenuItem(), self.__containers.values()))
-        menuItems.append(None)
+        menuItems.append(None) # separator
         menuItems.append(rumps.MenuItem("Quit Docker Menu", lambda _: rumps.quit_application(_)))
         self.menu.clear()
         self.menu = menuItems
 
     def updateContainers(self, sender):
         for container in self.__containers.values():
-            print(container.getId())
             container.update()

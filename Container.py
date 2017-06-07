@@ -15,6 +15,7 @@ class Container:
     def __init__(self, id: str, dockerShell):
         self.__id = id
         self.__dockerShell = dockerShell
+        self.__data = {}
         self.updateData()
         self.__createMenuItem()
 
@@ -31,10 +32,10 @@ class Container:
 
     def __createMenuItem(self):
         self.__menuItem = rumps.MenuItem(
-                title=self.__id,
-                callback=self.__click,
-                key=self.__id,
-                dimensions=(15, 15)
+            title=self.__id,
+            callback=self.__click,
+            key=self.__id,
+            dimensions=(15, 15)
         )
 
     def __click(self, sender):
@@ -46,14 +47,11 @@ class Container:
         else:
             self.__dockerShell.startContainer(self.__id)
 
-
     def getMenuItem(self) -> rumps.MenuItem:
         return self.__menuItem
 
-
     def getId(self):
         return self.__id
-
 
     def getStatus(self):
         status = Status.Off
@@ -62,7 +60,6 @@ class Container:
             status = Status.On
 
         return status
-
 
     def getStatusIcon(self):
         if self.getStatus() == Status.Off:
